@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Versículo Diario</string>
+    <string name="widget_nombre">Versículo de la hora</string>
+    <string name="widget_description">Un versículo de la Biblia Católica cada hora</string>
+</resources>
