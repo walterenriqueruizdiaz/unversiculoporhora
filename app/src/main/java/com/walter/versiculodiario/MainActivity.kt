@@ -33,6 +33,8 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import androidx.compose.runtime.remember
 import androidx.compose.foundation.text.selection.SelectionContainer
+import android.content.Intent
+import androidx.compose.material3.Button
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,6 +96,21 @@ private fun PantallaVersiculo() {
                     color = MaterialTheme.colorScheme.primary,
                     fontWeight = FontWeight.Bold
                 )
+                Button(
+                    onClick = {
+                        val mensaje = "“${actual.datos.versiculo.texto}”\n" +
+                                "— ${actual.datos.versiculo.referencia} (Libro del Pueblo de Dios)"
+
+                        val envio = Intent(Intent.ACTION_SEND).apply {
+                            type = "text/plain"
+                            putExtra(Intent.EXTRA_TEXT, mensaje)
+                        }
+                        context.startActivity(Intent.createChooser(envio, "Compartir versículo"))
+                    },
+                    modifier = Modifier.padding(top = 24.dp)
+                ) {
+                    Text("Compartir")
+                }
                 actual.datos.actualizadoMillis?.let { millis ->
                     val formato = DateTimeFormatter.ofPattern("dd/MM HH:mm")
                     val hora = Instant.ofEpochMilli(millis)
